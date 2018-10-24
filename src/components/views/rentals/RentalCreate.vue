@@ -3,7 +3,8 @@
     icon(
       icon="close"
       color="#515151"
-      size="26px")
+      size="26px"
+      @click="close")
     form.rental-create__form(@submit.prevent="onSubmit")
       label(for="name") Nazwisko
       input(
@@ -28,10 +29,6 @@ import vessels from "../../../utils/constants/vessels";
 export default {
   components: { icon },
   props: {
-    close: {
-      type: Boolean,
-      default: false
-    },
     submitRental: {
       type: Boolean,
       default: false
@@ -79,6 +76,9 @@ export default {
   methods: {
     onSubmit() {
       // console.log('form', form);
+    },
+    close() {
+      this.$router.push({ name: "items" });
     }
   }
 };
@@ -93,6 +93,10 @@ export default {
     .rh-icon
       display: flex
       align-self: flex-end
+      cursor: pointer
+      opacity: 0.8
+      &:hover
+        opacity: 1
     .rental-create__form
       display: flex
       width: 100%
