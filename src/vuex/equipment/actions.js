@@ -1,9 +1,9 @@
 import constants from "./constants";
 
-export const createItem = async ({ commit }, createdItem) => {
-  commit(constants.CREATE_ITEM, createdItem);
+export const prepareItem = async ({ commit }, item) => {
+  commit(constants.PREPARE_ITEM, item);
 };
 
-export const addItem = async ({ commit }, addedItem) => {
-  commit(constants.ADD_ITEM, addedItem);
+export const addPreparedItem = async ({ commit, getters }) => {
+  commit(constants.ADD_PREPARED_ITEM, getters.getPreparedItem);
 };

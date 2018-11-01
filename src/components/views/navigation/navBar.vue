@@ -2,16 +2,15 @@
 .nav-bar
   .nav-bar__menu menu
   .nav-bar__logo logo
-  .nav-bar__time
-    clock
+  .nav-bar__time {{ time }}
 </template>
 
 <script>
 import menuItems from "../../../utils/constants/menuItems";
-import clock from "../../commons/clock.vue";
+import clock from "../../mixins/clockMixin";
 
 export default {
-  components: { clock },
+  mixins: [clock],
   data() {
     return {
       menuItems

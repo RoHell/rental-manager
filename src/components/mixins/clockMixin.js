@@ -1,10 +1,4 @@
-<template lang="pug">
-  .clock {{ time }}
-</template>
-
-<script>
 export default {
-  props: {},
   data() {
     return {
       time: null
@@ -30,8 +24,3 @@ export default {
     }
   }
 };
-</script>
-
-<style lang="sass" scoped>
-
-</style>

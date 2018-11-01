@@ -1,10 +1,13 @@
 <template lang="pug">
   .footer-bar
     .footer-bar__menu
-    .footer-bar__action(@click="onAction")
+    .footer-bar__action(
+      @click="onAction"
+      :class="{'footer-bar__action--disabled': isActionButtonDisabled}"
+    )
       icon(
         :icon="iconToggleView"
-        color="#515151"
+        :color="iconColor"
         size="40px")
 </template>
 
@@ -18,7 +21,7 @@ export default {
     return {};
   },
   computed: {
-    ...mapGetters("equipment", ["getCreatedItem"]),
+    ...mapGetters("equipment", ["isDataProvided"]),
     iconToggleView() {
       return this.isItemsRoute ? "plus" : "check";
     },
@@ -27,27 +30,33 @@ export default {
     },
     isCreateItemRoute() {
       return this.$route.name === "create-item";
+    },
+    isActionButtonDisabled() {
+      return this.isCreateItemRoute && !this.isDataProvided;
+    },
+    iconColor() {
+      return this.isActionButtonDisabled ? "#999999" : "#515151";
     }
   },
   methods: {
-    ...mapActions("equipment", ["addItem"]),
+    ...mapActions("equipment", ["addPreparedItem"]),
     onAction() {
       if (this.isItemsRoute) {
-        this.add();
-      } else if (this.isCreateItemRoute) {
-        this.submit();
+        this.prepareItem();
+      } else {
+        this.submitPreparedItem();
       }
     },
-    async submit() {
+    async submitPreparedItem() {
       try {
-        await this.addItem(this.createdItem);
+        await this.addPreparedItem();
       } catch (e) {
         console.error(e);
       } finally {
         this.$router.push({ name: "items" });
       }
     },
-    add() {
+    prepareItem() {
       this.$router.push({ name: "create-item" });
     }
   }
@@ -65,7 +74,6 @@ export default {
     height: 60px
     border-top: 1px solid #ccc
     background: #515151
-    .footer-bar__menu
     .footer-bar__action
       position: absolute
       display: flex
@@ -83,4 +91,6 @@ export default {
       cursor: pointer
       &:hover
         border-width: 3px
+    .footer-bar__action--disabled
+      pointer-events: none
 </style>

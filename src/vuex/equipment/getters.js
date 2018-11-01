@@ -1,3 +1,5 @@
 export default {
-  getCreatedItem: state => state.createdItem
+  getPreparedItem: state => state.preparedItem,
+  getItems: state => state.items,
+  isDataProvided: state => state.isDataProvided
 };

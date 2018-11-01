@@ -1,13 +1,13 @@
 <template lang="pug">
-  .rented-item
+  .rented-item(@click="showItem")
     .rented-item__equipment
-      .rented-item__equipment__vessel {{ equipment.vessel }}
+      .rented-item__equipment__vessel {{ item.equipment.vessel }}
       .rented-item__equipment__accessories
-        .rented-item__equipment__accessories__vests {{ equipment.vests }}
-        .rented-item__equipment__accessories__paddles {{ equipment.paddles }}
+        .rented-item__equipment__accessories__vests {{ item.equipment.vests }}
+        .rented-item__equipment__accessories__paddles {{ item.equipment.paddles }}
     .rented-item__details
-      .rented-item__details__rentier {{ rentierFullName }}
-      .rented-item__details__timing {{ timing.start }}
+      .rented-item__details__rentier {{ item.rentier.name }}
+      .rented-item__details__timing {{ item.timing.start }}
       .rented-item__details__payment
         .rented-item__details__payment__fee {{ computedPaymentFee }}
         .rented-item__details__payment__paid {{ computedPaymentPaid }}
@@ -17,52 +17,33 @@
 <script>
 export default {
   props: {
-    rentier: {
+    item: {
       type: Object,
       default: () => ({})
-    },
-    timing: {
-      type: Object,
-      default: () => ({})
-    },
-    equipment: {
-      type: Object,
-      default: () => ({})
-    },
-    payment: {
-      type: Object,
-      default: () => ({})
-    },
-    comment: {
-      type: String,
-      default: ""
     }
   },
   data() {
     return {};
   },
   computed: {
-    isRentierNameProvided() {
-      return this.rentier && (this.rentier.firstName || this.rentierLastName);
-    },
-    rentierFullName() {
-      return this.isRentierNameProvided
-        ? `${this.rentier.firstName} ${this.rentierLastName}`
-        : "Anonimowy";
-    },
     computedPaymentFee() {
-      return this.payment && this.payment.fee ? `${this.payment.fee} PLN` : "";
+      return this.item.payment && this.item.payment.fee
+        ? `${this.item.payment.fee} PLN`
+        : "";
     },
     computedPaymentPaid() {
-      return this.payment && this.payment.paid
-        ? `${this.payment.paid} PLN`
+      return this.item.payment && this.item.payment.paid
+        ? `${this.item.payment.paid} PLN`
         : "";
     },
     computedPaymentToPay() {
-      return this.payment && this.payment.toPay
-        ? `${this.payment.toPay} PLN`
+      return this.item.payment && this.item.payment.toPay
+        ? `${this.item.payment.toPay} PLN`
         : "";
     }
+  },
+  methods: {
+    showItem() {}
   }
 };
 </script>

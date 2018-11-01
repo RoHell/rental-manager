@@ -1,33 +1,26 @@
 <template lang="pug">
   .rented-items
     rented-item(
-      v-for="rentedItem in rentedItemsList"
-      :key="rentedItem.id"
-      :equipment="rentedItem.equipment"
-      :rentier="rentedItem.rentier"
-      :timing="rentedItem.timing"
-      :payment="rentedItem.payment")
+      v-for="item in getItems"
+      :key="item.id"
+      :item="item"
+    )
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import RentedItem from "./RentedItem.vue";
-import rentedItemsList from "../../../utils/mocks/rentedItemsList";
 
 export default {
   components: { RentedItem },
   data() {
-    return {
-      rentedItemsList
-    };
+    return {};
   },
-  methods: {
-    onAddCreatedItem(item) {
-      this.rentedItemsList.push(item);
-    }
+  computed: {
+    ...mapGetters("equipment", ["getItems"])
   }
 };
 </script>
 
 <style lang="sass" scoped>
-  .rented-items
 </style>

@@ -5,7 +5,7 @@
       color="#515151"
       size="26px"
       @click="close")
-    form.rental-create__form(@submit.prevent="onSubmit")
+    .rental-create__form
       label(for="name") Nazwisko
       input(
         id="name"
@@ -14,7 +14,7 @@
       label(for="vesselType") Sprzęt
       select(
         id="vesselType"
-        v-model="vesselType")
+        v-model="vessel")
         option(
           v-for="vessel in vessels"
           :key="vessel.code"
@@ -22,12 +22,14 @@
 </template>
 
 <script>
-// import { mapGetters, mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 import icon from "../../commons/icon.vue";
 import vessels from "../../../utils/constants/vessels";
+import clock from "../../mixins/clockMixin";
 
 export default {
   components: { icon },
+  mixins: [clock],
   props: {
     submitRental: {
       type: Boolean,
@@ -38,23 +40,23 @@ export default {
     return {
       vessels,
       name: "",
-      vesselType: ""
+      vessel: ""
     };
   },
   computed: {
     singleRental() {
       return {
-        id: 13,
+        id: this.time,
         rentier: {
           name: this.name
         },
         timing: {
-          start: "11:05",
+          start: this.time,
           expectedDuration: 1,
           actualDuration: 2
         },
         equipment: {
-          vessel: this.vesselType,
+          vessel: this.vessel,
           amount: 1,
           vests: 2,
           paddles: 2
@@ -66,17 +68,20 @@ export default {
         },
         comment: "Wędkarze"
       };
+    },
+    isBaseData() {
+      return !!(this.name && this.vessel);
     }
   },
   watch: {
-    submitRental() {
-      // this.createRental(this.singleRental);
+    isBaseData(val) {
+      this.SET_PROVIDED_DATA_STATE(val);
+      this.prepareItem(this.singleRental);
     }
   },
   methods: {
-    onSubmit() {
-      // console.log('form', form);
-    },
+    ...mapActions("equipment", ["prepareItem"]),
+    ...mapMutations("equipment", ["SET_PROVIDED_DATA_STATE"]),
     close() {
       this.$router.push({ name: "items" });
     }
@@ -102,4 +107,7 @@ export default {
       width: 100%
       flex-direction: column
       justify-content: space-between
+      button
+        padding: .625rem .9375rem
+        margin: .625rem
 </style>

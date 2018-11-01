@@ -1,7 +1,14 @@
 import constants from "./constants";
 
 export default {
-  [constants.ADD_ITEM](state, createdItem) {
-    state.createdItem = createdItem;
+  [constants.PREPARE_ITEM](state, preparedItem) {
+    state.preparedItem = preparedItem;
+  },
+  [constants.ADD_PREPARED_ITEM](state, item) {
+    state.items.push(item);
+    state.isDataProvided = false;
+  },
+  [constants.SET_PROVIDED_DATA_STATE](state, dataState) {
+    state.isDataProvided = dataState;
   }
 };
