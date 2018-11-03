@@ -1,5 +1,6 @@
 export default {
   preparedItem: {},
   items: [],
-  isDataProvided: false
+  isDataProvided: false,
+  selectedItem: {}
 };

@@ -21,11 +21,11 @@ export default new Router({
       component: Login
     },
     {
-      path: "/rentals",
+      path: "/items",
       component: Rentals,
       children: [
         {
-          path: "items",
+          path: "",
           name: "items",
           component: RentedItems
         },
@@ -35,8 +35,8 @@ export default new Router({
           component: RentalCreate
         },
         {
-          path: "/:id",
-          name: "rented-item",
+          path: "item/:id",
+          name: "item",
           component: RentedItemView
         }
       ]

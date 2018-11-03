@@ -1,10 +1,19 @@
 <template lang="pug">
-  .about
-    h1 This is an about page
+  .item-view
+    span {{ getSelectedItem }}
 </template>
 
 <script>
-export default {};
+import { mapGetters } from "vuex";
+
+export default {
+  data() {
+    return {};
+  },
+  computed: {
+    ...mapGetters("equipment", ["getSelectedItem"])
+  }
+};
 </script>
 
 <style lang="sass" scoped>

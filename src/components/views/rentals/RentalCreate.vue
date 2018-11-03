@@ -4,21 +4,25 @@
       icon="close"
       color="#515151"
       size="26px"
-      @click="close")
+      @click="close"
+    )
     .rental-create__form
       label(for="name") Nazwisko
       input(
         id="name"
         v-model="name"
-        type="text")
+        type="text"
+      )
       label(for="vesselType") Sprzęt
       select(
         id="vesselType"
-        v-model="vessel")
+        v-model="vessel"
+      )
         option(
           v-for="vessel in vessels"
           :key="vessel.code"
-          :value="vessel.name") {{ vessel.name }}
+          :value="vessel.name"
+        ) {{ vessel.name }}
 </template>
 
 <script>

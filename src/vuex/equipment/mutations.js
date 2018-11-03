@@ -10,5 +10,8 @@ export default {
   },
   [constants.SET_PROVIDED_DATA_STATE](state, dataState) {
     state.isDataProvided = dataState;
+  },
+  [constants.SET_SELECTED_ITEM](state, item = {}) {
+    state.selectedItem = item;
   }
 };

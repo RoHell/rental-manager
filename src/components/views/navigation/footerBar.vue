@@ -8,7 +8,8 @@
       icon(
         :icon="iconToggleView"
         :color="iconColor"
-        size="40px")
+        size="40px"
+      )
 </template>
 
 <script>
@@ -31,8 +32,13 @@ export default {
     isCreateItemRoute() {
       return this.$route.name === "create-item";
     },
+    isItemRoute() {
+      return this.$route.name === "item";
+    },
     isActionButtonDisabled() {
-      return this.isCreateItemRoute && !this.isDataProvided;
+      return (
+        (this.isCreateItemRoute && !this.isDataProvided) || this.isItemRoute
+      );
     },
     iconColor() {
       return this.isActionButtonDisabled ? "#999999" : "#515151";

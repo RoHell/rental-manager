@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   props: {
     item: {
@@ -43,7 +44,11 @@ export default {
     }
   },
   methods: {
-    showItem() {}
+    ...mapActions("equipment", ["setSelectedItem"]),
+    showItem() {
+      this.setSelectedItem(this.item.id);
+      this.$router.push({ name: "item", params: { id: this.item.id } });
+    }
   }
 };
 </script>
