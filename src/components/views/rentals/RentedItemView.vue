@@ -1,17 +1,18 @@
 <template lang="pug">
   .item-view
-    span {{ getSelectedItem }}
+    pre {{ item }}
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
 export default {
+  props: {
+    item: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   data() {
     return {};
-  },
-  computed: {
-    ...mapGetters("equipment", ["getSelectedItem"])
   }
 };
 </script>

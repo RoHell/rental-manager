@@ -37,7 +37,8 @@ export default new Router({
         {
           path: "item/:id",
           name: "item",
-          component: RentedItemView
+          component: RentedItemView,
+          props: true
         }
       ]
     },

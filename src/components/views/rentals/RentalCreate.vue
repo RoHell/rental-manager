@@ -34,12 +34,6 @@ import clock from "../../mixins/clockMixin";
 export default {
   components: { icon },
   mixins: [clock],
-  props: {
-    submitRental: {
-      type: Boolean,
-      default: false
-    }
-  },
   data() {
     return {
       vessels,
