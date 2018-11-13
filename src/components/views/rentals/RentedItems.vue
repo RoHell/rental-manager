@@ -10,6 +10,7 @@
 <script>
 import { mapGetters } from "vuex";
 import RentedItem from "./RentedItem.vue";
+import { create } from "../navigation/footerActions";
 
 export default {
   components: { RentedItem },
@@ -18,6 +19,9 @@ export default {
   },
   computed: {
     ...mapGetters("equipment", ["getItems"])
+  },
+  mounted() {
+    this.$emit("footerAction", create);
   }
 };
 </script>

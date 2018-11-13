@@ -3,67 +3,53 @@
     .footer-bar__menu
     .footer-bar__action(
       @click="onAction"
-      :class="{'footer-bar__action--disabled': isActionButtonDisabled}"
+      :class="{'footer-bar__action--disabled': isDisabled}"
     )
       icon(
-        :icon="iconToggleView"
-        :color="iconColor"
+        :icon="actionIcon"
+        :disabled="isDisabled"
         size="40px"
       )
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapActions } from "vuex";
 import icon from "../../commons/icon.vue";
 
 export default {
   components: { icon },
+  props: {
+    footerAction: {
+      type: Object,
+      default: () => ({})
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {};
   },
   computed: {
-    ...mapGetters("equipment", ["isDataProvided"]),
-    iconToggleView() {
-      return this.isItemsRoute ? "plus" : "check";
+    actionIcon() {
+      return this.footerAction && this.footerAction.icon;
     },
-    isItemsRoute() {
-      return this.$route.name === "items";
-    },
-    isCreateItemRoute() {
-      return this.$route.name === "create-item";
-    },
-    isItemRoute() {
-      return this.$route.name === "item";
-    },
-    isActionButtonDisabled() {
-      return (
-        (this.isCreateItemRoute && !this.isDataProvided) || this.isItemRoute
-      );
-    },
-    iconColor() {
-      return this.isActionButtonDisabled ? "#999999" : "#515151";
+    isDisabled() {
+      return this.disabled || (this.footerAction && this.footerAction.disabled);
     }
   },
   methods: {
     ...mapActions("equipment", ["addPreparedItem"]),
-    onAction() {
-      if (this.isItemsRoute) {
-        this.prepareItem();
-      } else {
-        this.submitPreparedItem();
+    async onAction() {
+      if (this.footerAction.action === "SUBMIT") {
+        try {
+          await this.addPreparedItem();
+        } catch (e) {
+          console.error(e);
+        }
       }
-    },
-    async submitPreparedItem() {
-      try {
-        await this.addPreparedItem();
-      } catch (e) {
-        console.error(e);
-      } finally {
-        this.$router.push({ name: "items" });
-      }
-    },
-    prepareItem() {
-      this.$router.push({ name: "create-item" });
+      this.$router.push({ name: this.footerAction.route });
     }
   }
 };

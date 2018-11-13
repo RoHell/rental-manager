@@ -4,6 +4,7 @@
 </template>
 
 <script>
+import { back } from "../navigation/footerActions";
 export default {
   props: {
     item: {
@@ -13,6 +14,9 @@ export default {
   },
   data() {
     return {};
+  },
+  mounted() {
+    this.$emit("footerAction", back);
   }
 };
 </script>

@@ -7,8 +7,5 @@ export default {
   [constants.ADD_PREPARED_ITEM](state, item) {
     state.items.push(item);
     state.isDataProvided = false;
-  },
-  [constants.SET_PROVIDED_DATA_STATE](state, dataState) {
-    state.isDataProvided = dataState;
   }
 };

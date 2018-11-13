@@ -26,10 +26,11 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from "vuex";
+import { mapActions } from "vuex";
 import icon from "../../commons/icon.vue";
 import vessels from "../../../utils/constants/vessels";
 import clock from "../../mixins/clockMixin";
+import { submit } from "../navigation/footerActions";
 
 export default {
   components: { icon },
@@ -73,13 +74,16 @@ export default {
   },
   watch: {
     isBaseData(val) {
-      this.SET_PROVIDED_DATA_STATE(val);
       this.prepareItem(this.singleRental);
+      this.$emit("disabled", !val);
     }
+  },
+  mounted() {
+    this.$emit("disabled", true);
+    this.$emit("footerAction", submit);
   },
   methods: {
     ...mapActions("equipment", ["prepareItem"]),
-    ...mapMutations("equipment", ["SET_PROVIDED_DATA_STATE"]),
     close() {
       this.$router.push({ name: "items" });
     }
@@ -110,7 +114,7 @@ export default {
         color: #999999
         margin-bottom: 5px
         transition: 0.2s
-      input
+      input, select
         border: none
         border-bottom: 1px solid #ccc
         outline: none
