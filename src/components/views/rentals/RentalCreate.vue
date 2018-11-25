@@ -7,33 +7,29 @@
       @click="close"
     )
     .rental-create__form
-      label(for="name") Nazwisko
-      input(
-        id="name"
-        v-model="name"
-        type="text"
-      )
-      label(for="vessel") Sprzęt
-      select(
-        id="vessel"
-        v-model="vessel"
-      )
-        option(
-          v-for="vessel in vessels"
-          :key="vessel.code"
-          :value="vessel.name"
-        ) {{ vessel.name }}
+      input-text(label="Nazwisko" v-model="name" required)
+      input-select(label="Sprzęt" v-model="vessel" :options="vessels" key="code" required)
+      //- label(for="vessel") Sprzęt
+      //- select(
+      //-   id="vessel"
+      //-   v-model="vessel"
+      //- )
+      //-   option(
+      //-     v-for="vessel in vessels"
+      //-     :key="vessel.code"
+      //-   ) {{ vessel.name }}
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 import icon from "../../commons/icon.vue";
 import vessels from "../../../utils/constants/vessels";
 import clock from "../../mixins/clockMixin";
-import { submit } from "../navigation/footerActions";
+import inputText from "../../commons/inputText.vue";
+import inputSelect from "../../commons/inputSelect.vue";
 
 export default {
-  components: { icon },
+  components: { icon, inputText, inputSelect },
   mixins: [clock],
   data() {
     return {
@@ -74,16 +70,13 @@ export default {
   },
   watch: {
     isBaseData(val) {
+      this.SET_PROVIDED_DATA_STATE(val);
       this.prepareItem(this.singleRental);
-      this.$emit("disabled", !val);
     }
-  },
-  mounted() {
-    this.$emit("disabled", true);
-    this.$emit("footerAction", submit);
   },
   methods: {
     ...mapActions("equipment", ["prepareItem"]),
+    ...mapMutations("equipment", ["SET_PROVIDED_DATA_STATE"]),
     close() {
       this.$router.push({ name: "items" });
     }
