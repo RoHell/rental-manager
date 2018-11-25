@@ -7,22 +7,17 @@
       @click="close"
     )
     .rental-create__form
-      label(for="name") Nazwisko
-      input(
-        id="name"
-        v-model="name"
-        type="text"
-      )
-      label(for="vessel") Sprzęt
-      select(
-        id="vessel"
-        v-model="vessel"
-      )
-        option(
-          v-for="vessel in vessels"
-          :key="vessel.code"
-          :value="vessel.name"
-        ) {{ vessel.name }}
+      input-text(label="Nazwisko" v-model="name" required)
+      input-select(label="Sprzęt" v-model="vessel" :options="vessels" key="code" required)
+      //- label(for="vessel") Sprzęt
+      //- select(
+      //-   id="vessel"
+      //-   v-model="vessel"
+      //- )
+      //-   option(
+      //-     v-for="vessel in vessels"
+      //-     :key="vessel.code"
+      //-   ) {{ vessel.name }}
 </template>
 
 <script>
@@ -30,9 +25,11 @@ import { mapActions, mapMutations } from "vuex";
 import icon from "../../commons/icon.vue";
 import vessels from "../../../utils/constants/vessels";
 import clock from "../../mixins/clockMixin";
+import inputText from "../../commons/inputText.vue";
+import inputSelect from "../../commons/inputSelect.vue";
 
 export default {
-  components: { icon },
+  components: { icon, inputText, inputSelect },
   mixins: [clock],
   data() {
     return {
@@ -105,19 +102,19 @@ export default {
       width: 100%
       flex-direction: column
       justify-content: space-between
-      label
-        font-size: 0.8rem
-        color: #999999
-        margin-bottom: 5px
-        transition: 0.2s
-      input
-        border: none
-        border-bottom: 1px solid #ccc
-        outline: none
-        font-size: 1rem
-        color: #333333
-        letter-spacing: 0.8px
-        transition: 0.2s
-        &:focus
-          border-color: #666666
+      // label
+      //   font-size: 0.8rem
+      //   color: #999999
+      //   margin-bottom: 5px
+      //   transition: 0.2s
+      // input
+      //   border: none
+      //   border-bottom: 1px solid #ccc
+      //   outline: none
+      //   font-size: 1rem
+      //   color: #333333
+      //   letter-spacing: 0.8px
+      //   transition: 0.2s
+      //   &:focus
+      //     border-color: #666666
 </style>
