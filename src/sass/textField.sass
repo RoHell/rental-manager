@@ -1,0 +1,46 @@
+.text-field
+  display: flex
+  width: 100%
+  flex-direction: column
+  position: relative
+  margin: 20px 0
+  select, input
+    outline: none
+    font-size: 1rem
+    color: #333333
+    padding: 0 0 5px
+    letter-spacing: 0.8px
+    border: none
+    border-bottom: 1px solid #ccc
+    transition: 0.2s
+    &:focus
+      ~ .bar
+        &:before, &:after
+          width: 50%
+    &:focus, &.filled
+      ~ label
+        bottom: 30px
+        font-size: 0.8rem
+    &.filled
+      border-bottom: 1px solid #666
+  label
+    position: absolute
+    bottom: 3px
+    font-size: 1rem
+    color: #999999
+    transition: 0.2s
+  .bar
+    bottom: 2px
+    width: 100%
+    position: absolute
+    &:before, &:after
+      content: ""
+      width: 0
+      height: 2px
+      position: absolute
+      background: #666
+      transition: all 0.2s ease-in-out
+    &:before
+      left: 50%
+    &:after
+      right: 50%
