@@ -1,5 +1,4 @@
 export default {
   preparedItem: {},
-  items: [],
-  isDataProvided: false
+  items: []
 };

@@ -102,19 +102,19 @@ export default {
       width: 100%
       flex-direction: column
       justify-content: space-between
-      // label
-      //   font-size: 0.8rem
-      //   color: #999999
-      //   margin-bottom: 5px
-      //   transition: 0.2s
-      // input
-      //   border: none
-      //   border-bottom: 1px solid #ccc
-      //   outline: none
-      //   font-size: 1rem
-      //   color: #333333
-      //   letter-spacing: 0.8px
-      //   transition: 0.2s
-      //   &:focus
-      //     border-color: #666666
+      label
+        font-size: 0.8rem
+        color: #999999
+        margin-bottom: 5px
+        transition: 0.2s
+      input, select
+        border: none
+        border-bottom: 1px solid #ccc
+        outline: none
+        font-size: 1rem
+        color: #333333
+        letter-spacing: 0.8px
+        transition: 0.2s
+        &:focus
+          border-color: #666666
 </style>

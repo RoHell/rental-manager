@@ -1,7 +1,13 @@
 <template lang="pug">
   .rentals
-    router-view
-    footer-bar
+    router-view(
+      @footerAction="onFooterAction"
+      @disabled="actionDisabled"
+    )
+    footer-bar(
+      :footer-action="footerAction"
+      :disabled="isFooterActionDisabled"
+    )
 </template>
 
 <script>
@@ -10,9 +16,19 @@ import footerBar from "../navigation/footerBar.vue";
 export default {
   components: { footerBar },
   data() {
-    return {};
+    return {
+      footerAction: {},
+      isFooterActionDisabled: false
+    };
   },
-  methods: {}
+  methods: {
+    onFooterAction(action) {
+      this.footerAction = action;
+    },
+    actionDisabled(isDisabled) {
+      this.isFooterActionDisabled = isDisabled;
+    }
+  }
 };
 </script>
 
